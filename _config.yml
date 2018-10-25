@@ -18,6 +18,10 @@ root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 
+##### CUSTOM SETTINGS STARTS #####
+sidebar-avatar: img/avatar.jpg
+##### CUSTOM SETTINGS ENDS ####
+
 # Directory
 source_dir: source
 public_dir: public
