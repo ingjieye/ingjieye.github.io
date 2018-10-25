@@ -20,6 +20,12 @@ permalink_defaults:
 
 ##### CUSTOM SETTINGS STARTS #####
 sidebar-avatar: img/avatar.jpg
+
+SEOTitle: Yeyj's Blog
+email: ingjieye@gmail.com
+
+post_style:
+    indent: default
 ##### CUSTOM SETTINGS ENDS ####
 
 # Directory
