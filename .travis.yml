@@ -7,9 +7,10 @@ script:
     - hexo g # 生成
 after_script:
     - cd ./public
+    - echo "yyj.us" > CNAME
     - git init
-    - git config user.name "ingjieye" # 修改name
-    - git config user.email "ingjieye@gmail.com" # 修改email
+    - git config user.name "ingjieye"
+    - git config user.email "ingjieye@gmail.com"
     - git add .
     - git commit -m "Travis CI Auto Builder"
     - git push --force --quiet "https://${Travis_Token}@${GH_REF}" master:master 
