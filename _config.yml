@@ -89,3 +89,8 @@ theme: hexo-theme-aircloud
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type:
+
+comment:
+  type: livere
+  livere_id: 'city'
+  livere_uid: 'MTAyMC80Njk1MC8yMzQ1MQ=='
