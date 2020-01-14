@@ -3,7 +3,7 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Yeyj's Blog
+title: yyj
 subtitle:
 description:
 keywords:
@@ -83,7 +83,8 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: hexo-theme-aircloud
+#theme: hexo-theme-aircloud
+theme: landscape
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
