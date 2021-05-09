@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>yyj</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="yyj">
+<meta property="og:url" content="https://yyj.us/index.html">
+<meta property="og:site_name" content="yyj">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="yyj">
+  
+    <link rel="alternate" href="/atom.xml" title="yyj" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">yyj</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://yyj.us"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-openfortivpn" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/05/09/openfortivpn/" class="article-date">
+  <time datetime="2021-05-09T16:42:00.000Z" itemprop="datePublished">2021-05-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/05/09/openfortivpn/">在ubuntu上连接fortivpn</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://github.com/adrienverge/openfortivpn" target="_blank" rel="noopener">https://github.com/adrienverge/openfortivpn</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yyj.us/2021/05/09/openfortivpn/" data-id="ckogxlgsy0003bdp3hilywdny" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-SFINAE ：编译期的类成员函数重载" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/01/10/SFINAE ：编译期的类成员函数重载/" class="article-date">
+  <time datetime="2020-01-10T00:00:00.000Z" itemprop="datePublished">2020-01-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/10/SFINAE ：编译期的类成员函数重载/">SFINAE ：编译期的类成员函数重载</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近在写模板类的时候遇到一个问题：一个类成员函数如何针对某一特定的<code>template&lt;typename T&gt;</code> 模板参数类型，有默认的行为。</p>
+<p>请你先想五秒钟，再接着往下看。</p>
+<p>我想你应该和我一样，映入眼帘的第一个想法，是在这个函数里调用typeid(T)来判断T的类型，以此来让函数针对某一类型T有默认的行为：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="keyword">typeid</span>(T) == <span class="keyword">typeid</span>(<span class="built_in">std</span>::<span class="built_in">string</span>)) &#123;</span><br><span class="line">	<span class="comment">// 针对 string 的默认行为</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是很抱歉，事与愿违，事情远远没有我们想象的那么简单。<br>发生了什么事呢？<br>让我们先来个看个完整的例子</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Printer</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Printer() &#123; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">DoIt</span><span class="params">(<span class="keyword">const</span> T&amp; t)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeid</span>(T) == <span class="keyword">typeid</span>(<span class="built_in">std</span>::<span class="built_in">string</span>)) &#123;</span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; t &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"I don't know how to print"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>** argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Printer&lt;<span class="built_in">std</span>::<span class="built_in">string</span>&gt; p;</span><br><span class="line">    p.DoIt(<span class="string">"WTF"</span>);</span><br><span class="line"></span><br><span class="line">    Printer&lt;<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt; p2;</span><br><span class="line">    p2.DoIt(&#123;<span class="string">'W'</span>, <span class="string">'T'</span>, <span class="string">'F'</span>&#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译它</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">% clang++ SFINAE.cpp -<span class="built_in">std</span>=c++<span class="number">11</span></span><br><span class="line">SFINAE.cpp:14:23: error: invalid operands to binary expression ('ostream' (aka 'basic_ostream&lt;char&gt;') and 'const std::vector&lt;char, std::allocator&lt;char&gt; &gt;')</span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; t &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">            ~~~~~~~~~ ^  ~</span><br></pre></td></tr></table></figure>
+<p>可以看到编译器给出了没办法调用<code>std::cout&lt;&lt; t &lt;&lt; std::endl</code>的错误，t是一个<code>std::vector&lt;char&gt;</code>类型。<br>看到这里你应该明白了，在上述例子的第14行中，编译器对模板使用了<code>std::vector&lt;char&gt;</code>类型进行实例化，实例化后的Printer类变成了这个样子：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Printer</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Printer() &#123; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">DoIt</span><span class="params">(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&amp; t)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeid</span>(<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;) == <span class="keyword">typeid</span>(<span class="built_in">std</span>::<span class="built_in">string</span>)) &#123;</span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; t &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"I don't know how to print"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>虽然第8行的if永远都不会成立，但是编译器可没有那么聪明。他只看到了你要对 <code>std::vector&lt;char&gt;</code>类型调用std::cout进行输出，这当然是不行的。<br>你可能会想，要是编译器足够聪明，可以把这段永远不会执行的if分支在编译期给消灭掉，不就得了吗？对此我们暂时按下不表。先来看看在C++11标准下，要如何解决这个问题。也就是说，如何实现一个 “编译期的if”。</p>
+<p>另一个想法映入眼帘，</p>
+<p>我们要如何实现针对类成员函数的“偏特化”。</p>
+<p>先把正确答案贴上，别急着关闭网页，我慢慢跟你解释。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Printer</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Printer() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U = T&gt;</span><br><span class="line">    <span class="keyword">void</span></span><br><span class="line">    DoIt(<span class="keyword">const</span> T&amp; t, <span class="keyword">typename</span> <span class="built_in">std</span>::enable_if&lt;<span class="built_in">std</span>::is_same&lt;U, <span class="built_in">std</span>::<span class="built_in">string</span>&gt;::value, <span class="keyword">void</span>&gt;::type * = <span class="literal">nullptr</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; t &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U = T&gt;</span><br><span class="line">    <span class="keyword">void</span></span><br><span class="line">    DoIt(<span class="keyword">const</span> T&amp; t, <span class="keyword">typename</span> <span class="built_in">std</span>::enable_if&lt;!<span class="built_in">std</span>::is_same&lt;U, <span class="built_in">std</span>::<span class="built_in">string</span>&gt;::value, <span class="keyword">void</span>&gt;::type * = <span class="literal">nullptr</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"I don't know how to print"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>先从本文的标题说起。SFINAE是「Substitution failure is not an error」的缩写。</p>
+<h2 id="typename"><a href="#typename" class="headerlink" title="typename"></a>typename</h2><p><a href="http://feihu.me/blog/2014/the-origin-and-usage-of-typename/" target="_blank" rel="noopener">http://feihu.me/blog/2014/the-origin-and-usage-of-typename/</a></p>
+<h2 id="SFINAE"><a href="#SFINAE" class="headerlink" title="SFINAE"></a>SFINAE</h2><p><a href="https://zhuanlan.zhihu.com/p/21314708" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/21314708</a></p>
+<h2 id="immediate-context"><a href="#immediate-context" class="headerlink" title="immediate context"></a>immediate context</h2><p><a href="https://codeday.me/en/qa/20190306/13897.html" target="_blank" rel="noopener">https://codeday.me/en/qa/20190306/13897.html</a></p>
+<h2 id="std-enable-if"><a href="#std-enable-if" class="headerlink" title="std::enable_if_"></a>std::enable_if_</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yyj.us/2020/01/10/SFINAE ：编译期的类成员函数重载/" data-id="ckogxlgsn0000bdp3akvdtpxj" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-The Curse of Productivity" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/10/03/The Curse of Productivity/" class="article-date">
+  <time datetime="2019-10-03T23:23:27.000Z" itemprop="datePublished">2019-10-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/03/The Curse of Productivity/">The Curse of Productivity</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-The-Prefix"><a href="#1-The-Prefix" class="headerlink" title="1. The Prefix"></a>1. The Prefix</h3><p>在购买了这个打算用做博客的域名一年后，一篇文章没写下的我被namesilo催续费了。支付了 $7.99 有点肉疼，毕竟白放了一年什么也没干。</p>
+<h3 id="2-The-Curse"><a href="#2-The-Curse" class="headerlink" title="2. The Curse"></a>2. The Curse</h3><p>抛开文学水平低下不说，这一年里还是有几次冲动想要写点东西的，也确实写下了一点，但都流产了。究其原因，不知从什么时候开始，我太过关注于工具所能提供的生产力，甚至大过了生产本身。生产工具的不称手导致生产需要更多的 mental energy，导致完全不想进行生产。Reddit 上 vim 板的这张图就特别贴切地描述了这个状态：</p>
+<p><img src="https://i.redd.it/o1xoolcmg4x01.png" alt="img"></p>
+<p>当然这种状态有好处也有坏处，拿写博客来说：</p>
+<p>Cons: 这一年里的几次冲动都因为没有顺心如意的工具鸽了。这次在肉疼之后总算找到一个顺心的工具，叫做 Ulysses，才能支撑我在百忙之中（并没有）写下这篇水文（这是真的），虽然插入图片的体验并不是那么顺畅（</p>
+<p>Pros: 这个工具也让我意识到笔记的收集和笔记的整理并不需要在同一个App上。所以打算彻底抛弃现在使用的非常 buggy 的为知笔记，切换成 Ulysses + Evernote。希望得到生产力的大跃进（好像有点不对</p>
+<h3 id="3-The-Productivity"><a href="#3-The-Productivity" class="headerlink" title="3. The Productivity"></a>3. The Productivity</h3><p>文章的第二段原本是叫 <code>Curse of Productivity</code>， 害怕有哪些单词拼错，放到 Google 搜索了一下，发现 Observer 的文章 <a href="https://observer.com/2014/02/the-curse-of-productivity-when-optimization-holds-you-back/" target="_blank" rel="noopener">The Curse of Productivity</a> 描述了和我大概一样的状态。索性把文章也改成同名了。其引用了<a href="https://en.wikipedia.org/wiki/Pareto_principle" target="_blank" rel="noopener">二八定律</a>表示花仅花20%的时间就能得到80%的生产力提高，其余20%生产力的提高要花掉80%的时间，以至于因为生产力提高而省下的时间可能还不够提高生产力本身所花费的时间。对此我真是深有同感。配置VIM的时间中有80%的都花在为了提高那20%的生产力上。</p>
+<p>文章还认为如果太高效会导致 less creative，对此我不敢苟同。我认为既然生产力的提高降低了做事情需要的 mental energy，那么也就会有更多的 mental energy 来做更加 creative 的事情。</p>
+<h3 id="4-The-End"><a href="#4-The-End" class="headerlink" title="4. The End"></a>4. The End</h3><p>从立题到内容有点高开低走了哈，但是废话就写到这，希望今年可以多多产出，<a href="https://news.ycombinator.com/item?id=20781463" target="_blank" rel="noopener">Consume less, create more</a>!</p>
+<blockquote>
+<p>你看这篇文章 —— 还是在写生产力！</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yyj.us/2019/10/03/The Curse of Productivity/" data-id="ckogxlgsv0002bdp3bcts10kb" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/05/09/openfortivpn/">在ubuntu上连接fortivpn</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/10/SFINAE ：编译期的类成员函数重载/">SFINAE ：编译期的类成员函数重载</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/03/The Curse of Productivity/">The Curse of Productivity</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 Yingjie Ye<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
