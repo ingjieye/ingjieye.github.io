@@ -2,39 +2,39 @@
 title: The Curse of Productivity
 published: 2019-10-03
 tags:
-  - 随笔
-  - 生产力
+  - Essay
+  - Productivity
 abbrlink: the-curse-of-productivity
 ---
 
-
 ### 1. The Prefix
-在购买了这个打算用做博客的域名一年后，一篇文章没写下的我被namesilo催续费了。支付了 $7.99 有点肉疼，毕竟白放了一年什么也没干。
+
+A year after buying this domain to blog on, without having written a single post, namesilo came asking me to renew. Paying that $7.99 stung a little — I'd sat on it for a year and done nothing with it.
 
 ### 2. The Curse
-抛开文学水平低下不说，这一年里还是有几次冲动想要写点东西的，也确实写下了一点，但都流产了。究其原因，不知从什么时候开始，我太过关注于工具所能提供的生产力，甚至大过了生产本身。生产工具的不称手导致生产需要更多的 mental energy，导致完全不想进行生产。Reddit 上 vim 板的这张图就特别贴切地描述了这个状态：
+
+Setting aside my questionable writing, there were a few moments this past year when I actually felt the urge to write something. I even started a couple of times, but every one of them died on the vine. Looking back at why: at some point I started caring more about how much productivity my tools could give me than about actually producing anything. Tools that don't fit your hand make production cost more mental energy, and that makes you not want to produce at all. This chart from Reddit's vim board captures the state perfectly:
 
 ![](./_images/vim-time-spent.png)
 
-当然这种状态有好处也有坏处，拿写博客来说：
+There are upsides and downsides to living like this. Take blogging:
 
-Cons: 这一年里的几次冲动都因为没有顺心如意的工具鸽了。这次在肉疼之后总算找到一个顺心的工具，叫做 Ulysses，才能支撑我在百忙之中（并没有）写下这篇水文（这是真的），虽然插入图片的体验并不是那么顺畅（
+Cons: every one of those urges this year got dropped because I didn't have a tool I was happy with. This time, after the renewal stung, I finally found one I like — Ulysses — and that's the only reason I could write this filler piece in the middle of a busy schedule (I wasn't busy; the filler part is true). Though inserting images is still not a smooth experience (
 
-Pros: 这个工具也让我意识到笔记的收集和笔记的整理并不需要在同一个App上。所以打算彻底抛弃现在使用的非常 buggy 的为知笔记，切换成 Ulysses + Evernote。希望得到生产力的大跃进（好像有点不对
+Pros: this tool also made me realize that collecting notes and organizing notes don't have to happen in the same app. So I'm dropping the extremely buggy Wiz Note I've been using and switching to Ulysses + Evernote. Here's hoping for a great leap forward in productivity (wait, that doesn't sound right
 
 ### 3. The Productivity
 
-文章的第二段原本是叫 `Curse of Productivity`， 害怕有哪些单词拼错，放到 Google 搜索了一下，发现 Observer 的文章 [The Curse of Productivity][1] 描述了和我大概一样的状态。索性把文章也改成同名了。其引用了[二八定律][2]表示花仅花20%的时间就能得到80%的生产力提高，其余20%生产力的提高要花掉80%的时间，以至于因为生产力提高而省下的时间可能还不够提高生产力本身所花费的时间。对此我真是深有同感。配置VIM的时间中有80%的都花在为了提高那20%的生产力上。
+Section 2 was originally titled `Curse of Productivity`. Worried I'd misspelled something, I googled it — and found Observer's article [The Curse of Productivity][1], which describes roughly the same state I was in. So I just renamed the whole post to match. It cites the [Pareto principle][2]: 20% of the time gets you 80% of the productivity gain, and the remaining 20% of the gain costs the other 80% of the time — to the point where the time you save from being more productive may not even cover the time you spent getting there. I feel this in my bones. 80% of the time I've spent configuring vim went toward chasing that last 20%.
 
-文章还认为如果太高效会导致 less creative，对此我不敢苟同。我认为既然生产力的提高降低了做事情需要的 mental energy，那么也就会有更多的 mental energy 来做更加 creative 的事情。
+The article also argues that being too efficient makes you less creative. I don't buy that one. If higher productivity lowers the mental energy a task demands, then you have more mental energy left over for the creative things.
 
 ### 4. The End
 
-从立题到内容有点高开低走了哈，但是废话就写到这，希望今年可以多多产出，[Consume less, create more][3]!
+This went downhill from the title, but that's enough rambling. Here's hoping I actually produce more this year — [Consume less, create more][3]!
 
-> 你看这篇文章 —— 还是在写生产力！
+> Look at this post — still writing about productivity!
 
-[1]:	https://observer.com/2014/02/the-curse-of-productivity-when-optimization-holds-you-back/
-[2]:	https://en.wikipedia.org/wiki/Pareto_principle
-[3]:	https://news.ycombinator.com/item?id=20781463
-
+[1]: https://observer.com/2014/02/the-curse-of-productivity-when-optimization-holds-you-back/
+[2]: https://en.wikipedia.org/wiki/Pareto_principle
+[3]: https://news.ycombinator.com/item?id=20781463

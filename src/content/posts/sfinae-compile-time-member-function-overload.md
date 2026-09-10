@@ -1,28 +1,27 @@
 ---
-title: SFINAE：编译期的类成员函数重载
+title: "SFINAE: Overloading Member Functions at Compile Time"
 published: 2020-01-10
 tags:
   - C++
-  - 模板
+  - Templates
 abbrlink: sfinae-compile-time-member-function-overload
 ---
 
+I ran into a problem recently while writing a template class: how does a member function get a default behavior for one specific `template<typename T>` parameter type?
 
-最近在写模板类的时候遇到一个问题：一个类成员函数如何针对某一特定的`template<typename T>` 模板参数类型，有默认的行为。
+Take five seconds to think about it before reading on.
 
-请你先想五秒钟，再接着往下看。
-
-我想你应该和我一样，映入眼帘的第一个想法，是在这个函数里调用typeid(T)来判断T的类型，以此来让函数针对某一类型T有默认的行为：
+I suspect the first thing that comes to mind for you is the same thing that came to mind for me — call `typeid(T)` inside the function to check the type of T, and branch on it:
 
 ```cpp
 if (typeid(T) == typeid(std::string)) {
-	// 针对 string 的默认行为
+	// default behavior for string
 }
 ```
 
-但是很抱歉，事与愿违，事情远远没有我们想象的那么简单。
-发生了什么事呢？
-让我们先来个看个完整的例子
+Sorry, but no. It doesn't work, and things are nowhere near as simple as we'd like.
+
+So what happens? Let's look at a complete example first.
 
 ```cpp
 #include <string>
@@ -57,7 +56,7 @@ int main(int argc, char** argv)
 }
 ```
 
-编译它
+Compile it:
 
 ```cpp
 % clang++ SFINAE.cpp -std=c++11
@@ -66,8 +65,9 @@ SFINAE.cpp:14:23: error: invalid operands to binary expression ('ostream' (aka '
             ~~~~~~~~~ ^  ~
 ```
 
-可以看到编译器给出了没办法调用`std::cout<< t << std::endl`的错误，t是一个`std::vector<char>`类型。
-看到这里你应该明白了，在上述例子的第14行中，编译器对模板使用了`std::vector<char>`类型进行实例化，实例化后的Printer类变成了这个样子：
+The compiler tells us it can't call `std::cout << t << std::endl` — `t` is a `std::vector<char>`.
+
+By now you can probably see it: on line 14 of the example above, the compiler instantiated the template with `std::vector<char>`, and the instantiated `Printer` looks like this:
 
 ```cpp
 class Printer
@@ -86,14 +86,15 @@ public:
 };
 ```
 
-虽然第8行的if永远都不会成立，但是编译器可没有那么聪明。他只看到了你要对 `std::vector<char>`类型调用std::cout进行输出，这当然是不行的。
-你可能会想，要是编译器足够聪明，可以把这段永远不会执行的if分支在编译期给消灭掉，不就得了吗？对此我们暂时按下不表。先来看看在C++11标准下，要如何解决这个问题。也就是说，如何实现一个 “编译期的if”。
+The `if` on line 8 can never be true, but the compiler isn't that clever. All it sees is that you're trying to stream a `std::vector<char>` into `std::cout`, and that of course doesn't work.
 
-另一个想法映入眼帘，
+You might be thinking: if the compiler were smart enough to eliminate a branch that can never execute at compile time, wouldn't that solve it? Let's set that aside for now, and look at how to solve this under C++11 instead. In other words: how do we implement a "compile-time if"?
 
-我们要如何实现针对类成员函数的“偏特化”。
+Another idea comes to mind —
 
-先把正确答案贴上，别急着关闭网页，我慢慢跟你解释。
+how do we get something like "partial specialization" for a class member function?
+
+Here's the correct answer up front. Don't close the tab yet; I'll walk through it.
 
 ```cpp
 class Printer
@@ -118,18 +119,22 @@ public:
 };
 ```
 
-先从本文的标题说起。SFINAE是「Substitution failure is not an error」的缩写。
+Let's start with the title of this post. SFINAE stands for "Substitution failure is not an error".
+
 ## typename
+
 [http://feihu.me/blog/2014/the-origin-and-usage-of-typename/][1]
 
 ## SFINAE
+
 [https://zhuanlan.zhihu.com/p/21314708][2]
 
 ## immediate context
+
 [https://codeday.me/en/qa/20190306/13897.html][3]
 
 ## std::enable\_if\_
 
-[1]:	http://feihu.me/blog/2014/the-origin-and-usage-of-typename/
-[2]:	https://zhuanlan.zhihu.com/p/21314708
-[3]:	https://codeday.me/en/qa/20190306/13897.html
+[1]: http://feihu.me/blog/2014/the-origin-and-usage-of-typename/
+[2]: https://zhuanlan.zhihu.com/p/21314708
+[3]: https://codeday.me/en/qa/20190306/13897.html

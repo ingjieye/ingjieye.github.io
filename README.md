@@ -1,39 +1,42 @@
 # yyj.us
 
-个人博客，部署在 GitHub Pages。
+Personal blog, deployed on GitHub Pages.
 
-基于 [Astro](https://astro.build) 和 [Retypeset](https://github.com/radishzzz/astro-theme-retypeset) 主题。
+Built with [Astro](https://astro.build) and the [Retypeset](https://github.com/radishzzz/astro-theme-retypeset) theme.
 
-## 本地开发
+## Local development
 
 ```bash
 pnpm install
 pnpm dev      # http://localhost:4321
-pnpm build    # 输出到 dist/
+pnpm build    # outputs to dist/
 pnpm preview
 ```
 
-## 写文章
+## Writing a post
 
-在 `src/content/posts/` 下新建 Markdown：
+Create a Markdown file under `src/content/posts/`:
 
 ```markdown
 ---
-title: 标题
+title: Title
 published: 2026-09-10
 tags:
-  - 标签
-abbrlink: url-slug   # 决定文章 URL：/posts/<abbrlink>/
+  - Tag
+abbrlink: url-slug   # determines the post URL: /posts/<abbrlink>/
 ---
 ```
 
-图片放 `src/content/posts/_images/`，用相对路径 `./_images/xxx.png` 引用。
+Put images in `src/content/posts/_images/` and reference them with a relative path
+like `./_images/foo.png`.
 
-## 部署
+## Deployment
 
-push 到 `master` 由 `.github/workflows/deploy.yml` 自动构建并发布到 GitHub Pages。
+Pushing to `master` triggers `.github/workflows/deploy.yml`, which builds the site
+and publishes it to GitHub Pages.
 
-## 旧站
+## History
 
-2021 年之前是 Hexo 站点，源码在 `hexo` 分支，最后一次构建产物在 tag `backup/hexo-master-20260910`。
-旧文章 URL 的重定向配置在 `astro.config.ts` 的 `redirects` 中。
+This site ran on Hexo until 2021. The final build output of that era is preserved
+in the tag `backup/hexo-master-20260910`. Redirects from the old post URLs are
+configured under `redirects` in `astro.config.ts`.

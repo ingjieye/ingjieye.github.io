@@ -37,7 +37,7 @@ const pageImage = postSlug
   ? new URL(`${base}/og/${postSlug}.png`, Astro.url.origin)
   : apiflashKey
     ? `https://api.apiflash.com/v1/urltoimage?access_key=${apiflashKey}&url=${Astro.url}&format=png&width=1500&height=788&ttl=259200&wait_until=network_idle&no_tracking=true`
-    // 主题原本在此回落到作者自己的 apiflash key 和 retypeset.radishzz.cc，改用本站静态图
+    // Upstream falls back to the theme author's apiflash key and domain here; use our own static image
     : new URL(`${base}/icons/og-logo.png`, Astro.url.origin)
 ---
 

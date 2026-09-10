@@ -29,7 +29,7 @@ export default defineConfig({
   site,
   base,
   trailingSlash: 'always', // Not recommended to change
-  // 旧 Hexo 站点 URL -> 新 slug，保证外部旧链接不失效
+  // Legacy Hexo URLs -> new slugs, so external links keep working
   redirects: {
     '/2019/10/03/The Curse of Productivity': '/posts/the-curse-of-productivity/',
     '/2020/01/10/SFINAE ：编译期的类成员函数重载': '/posts/sfinae-compile-time-member-function-overload/',
