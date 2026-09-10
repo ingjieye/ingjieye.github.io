@@ -71,7 +71,7 @@ export const themeConfig: ThemeConfig = {
     // enable katex math rendering
     katex: true, // true | false
     // reduce motion
-    reduceMotion: false, // true | false
+    reduceMotion: true, // true | false
   },
   // GLOBAL SETTINGS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> END
 

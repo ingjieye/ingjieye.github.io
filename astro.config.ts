@@ -33,7 +33,6 @@ export default defineConfig({
   redirects: {
     '/2019/10/03/The Curse of Productivity': '/posts/the-curse-of-productivity/',
     '/2020/01/10/SFINAE ：编译期的类成员函数重载': '/posts/sfinae-compile-time-member-function-overload/',
-    '/2021/05/09/openfortivpn': '/posts/openfortivpn/',
   },
   prefetch: {
     prefetchAll: true,
