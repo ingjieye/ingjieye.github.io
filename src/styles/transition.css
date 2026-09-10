@@ -152,22 +152,31 @@ html[data-theme-changing] [data-disable-theme-toggle-transition] {
 }
 
 /* Fallback Transition >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+/* Selectors are kept flat on purpose: when nested inside a rule that also
+   carries --at-apply, the build drops the nested blocks entirely. */
 html.reduce-motion {
   --at-apply: 'transition-colors duration-300 ease-out';
+}
 
-  .highlight-hover,
-  .highlight-static {
-    --at-apply: 'transition-inherit';
-  }
+html.reduce-motion .highlight-hover,
+html.reduce-motion .highlight-static {
+  --at-apply: 'transition-inherit';
+}
 
-  #toc-container,
-  #post-date,
-  #post-content > *,
-  #toc-desktop-icon,
-  #toc-links-list > *,
-  #back-button {
-    opacity: 1;
-    transform: translate(0);
-    animation: none;
-  }
+html.reduce-motion #toc-container,
+html.reduce-motion #post-date,
+html.reduce-motion #post-content > *,
+html.reduce-motion #toc-desktop-icon,
+html.reduce-motion #toc-links-list > *,
+html.reduce-motion #back-button {
+  opacity: 1;
+  transform: translate(0);
+  animation: none;
+}
+
+/* Cross-document view transitions run outside the rules above */
+html.reduce-motion::view-transition-group(*),
+html.reduce-motion::view-transition-old(*),
+html.reduce-motion::view-transition-new(*) {
+  animation: none !important;
 }
